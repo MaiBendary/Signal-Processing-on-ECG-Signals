@@ -91,3 +91,10 @@ figure(5)
 subplot(3,1,3)
 plot(tau, ECG3_40_acf)
 title('Autocorrelation of 50 HZ LPF ECG signal')
+
+
+%-------------------------------Step 5--------------------------%
+ECG3_40 = pan_tompkin(ECG3_40,fs,1);
+ECG2 = pan_tompkin(ECG2,fs,1);
+ECG1 = pan_tompkin(ECG1,fs,1);
+
