@@ -22,17 +22,31 @@ plot(fvec,ECG_Signal_f_mg)
 title('ECG signal in frequency domain')
 
 %--------Ideal HBF--------%
-fc=0.5;
-index = find(fvec<=fc & fvec>=0);
-ECG_Signal_f([index]) = 0;
-% remove frequencies < -fc (remove negative HSB)
-index2 = find(fvec>=(-fc) & fvec<=0);
-ECG_Signal_f(index2) = 0;
-ECG_Signal_f_mg = abs(ECG_Signal_f);
+
+n = N/fs;
+left_band = round((fs/2-0.5)*n);
+right_band = (N-left_band+1);
+ECG_Signal_f([left_band:right_band]) = 0;
+
+%x = real(ifft(ifftshift(ECG_Signal_f)));
+
+% plot the Filtered signal in time domain
+x = real(ifft(ifftshift(ECG_Signal_f)));
+figure()
+    plot(t,x)
+    title('Filterd signal in time domain')
+    
+% plot the Filtered signal in frequency
+Xmg=abs(ECG_Signal_f);
+fvec=linspace(-fs/2,fs/2,N);
+
 
 subplot(3,1,2)
-plot(fvec,ECG_Signal_f_mg)
-title('ECG signal in frequency domain after HBF at 0.5 HZ')
+plot(fvec,Xmg)
+title('Filtered Signal in frequency domain')
+
+
+
 
 %-----Notch Filter at 50 HZ-----%
 
