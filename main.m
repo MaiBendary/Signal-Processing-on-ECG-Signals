@@ -1,4 +1,5 @@
 ECG_Signal = ecg;
+ECG1 = ECG_Signal;
 fs = 500;
 
 %--------ECG signal in time domain--------%
@@ -57,6 +58,7 @@ subplot(3,1,3)
 plot(fvec,ECG_Signal_f_mg)
 title('ECG signal in frequency domain after Notch filter at 50 HZ')
 ECG_Signal_t = real(ifft(ifftshift(ECG_Signal_f)));
+ECG2 = ECG_Signal_t;
 figure(1)
 subplot(3,1,3)
 plot(t,ECG_Signal_t)
@@ -68,5 +70,24 @@ ECG3_40 = LBF(ECG_Signal_f, 40, 2);
 ECG3_60 = LBF(ECG_Signal_f, 60, 3);
 
 
+%-------------------------------Step 4--------------------------%
+%--------Autocorrelation--------%
+ECG3_40_acf = xcorr2(ECG3_40);
+ECG2_acf = xcorr2(ECG2);
+ECG1_acf = xcorr2(ECG1);
+tau = [-N+1:N-1];
 
+figure(5)
+subplot(3,1,1)
+plot(tau, ECG1_acf)
+title('Autocorrelation of unprocessed ECG signal')
 
+figure(5)
+subplot(3,1,2)
+plot(tau, ECG2_acf)
+title('Autocorrelation of notched ECG signal')
+
+figure(5)
+subplot(3,1,3)
+plot(tau, ECG3_40_acf)
+title('Autocorrelation of 50 HZ LPF ECG signal')
