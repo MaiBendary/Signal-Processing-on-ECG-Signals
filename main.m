@@ -29,7 +29,6 @@ left_band = round((fs/2-0.5)*n);
 right_band = (N-left_band+1);
 ECG_Signal_f([left_band:right_band]) = 0;
 
-%x = real(ifft(ifftshift(ECG_Signal_f)));
 
 % plot the Filtered signal in time domain
 ECG_Signal_t = real(ifft(ifftshift(ECG_Signal_f)));
@@ -64,4 +63,10 @@ plot(t,ECG_Signal_t)
 title('ECG signal in time domain after Notch filter at 50 HZ')
 %-------------------------------Step 3--------------------------%
 %--------Increasing SNR--------%
+ECG3_20 = LBF(ECG_Signal_f, 20, 1);
+ECG3_40 = LBF(ECG_Signal_f, 40, 2);
+ECG3_60 = LBF(ECG_Signal_f, 60, 3);
+
+
+
 
