@@ -21,7 +21,7 @@ subplot(3,1,1)
 plot(fvec,ECG_Signal_f_mg)
 title('ECG signal in frequency domain')
 
-%--------Ideal LBF--------%
+%--------Ideal HBF--------%
 fc=0.5;
 index = find(fvec<=fc & fvec>=0);
 ECG_Signal_f([index]) = 0;
@@ -32,13 +32,15 @@ ECG_Signal_f_mg = abs(ECG_Signal_f);
 
 subplot(3,1,2)
 plot(fvec,ECG_Signal_f_mg)
-title('ECG signal in frequency domain after LBF at 0.5 HZ')
+title('ECG signal in frequency domain after HBF at 0.5 HZ')
 
+%-----Notch Filter at 50 HZ-----%
 
+fc=50; 
+index = find(round(fvec) == fc);
+ECG_Signal_f([index]) = 0;
+ECG_Signal_f_mg = abs(ECG_Signal_f);
 
-
-
-
-
-
-
+subplot(3,1,3)
+plot(fvec,ECG_Signal_f_mg)
+title('ECG signal in frequency domain after Notch filter at 50 HZ')
