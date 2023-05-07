@@ -1,4 +1,4 @@
-function [ECG_Signal_f] = LBF(ECG_Signal_f, fc, Plot_Number)
+function [ECG_Signal_t] = LBF(ECG_Signal_f, fc, Plot_Number)
     N = length(ECG_Signal_f);
     fs = 500;
     t_end = N./fs;
