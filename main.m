@@ -6,6 +6,7 @@ N = length(ECG_Signal);
 t_end = N./fs;
 t = linspace(0,t_end, N);
 figure(1)
+subplot(3,1,1)
 plot(t,ECG_Signal)
 title('ECG signal in time domain')
 
@@ -31,30 +32,36 @@ ECG_Signal_f([left_band:right_band]) = 0;
 %x = real(ifft(ifftshift(ECG_Signal_f)));
 
 % plot the Filtered signal in time domain
-x = real(ifft(ifftshift(ECG_Signal_f)));
-figure()
-    plot(t,x)
-    title('Filterd signal in time domain')
-    
+ECG_Signal_t = real(ifft(ifftshift(ECG_Signal_f)));
+figure(1)
+subplot(3,1,2)
+plot(t,ECG_Signal_t)
+title('ECG signal in time domain after HPF filter at 0.5 HZ')
+
 % plot the Filtered signal in frequency
 Xmg=abs(ECG_Signal_f);
 fvec=linspace(-fs/2,fs/2,N);
-
-
+figure(2)
 subplot(3,1,2)
 plot(fvec,Xmg)
-title('Filtered Signal in frequency domain')
+title('ECG signal in frequency domain after HPF filter at 0.5 HZ')
 
-
-
-
+%----------------------------Step 2----------------------------%
 %-----Notch Filter at 50 HZ-----%
 
 fc=50; 
 index = find(round(fvec) == fc);
 ECG_Signal_f([index]) = 0;
 ECG_Signal_f_mg = abs(ECG_Signal_f);
-
+figure(2)
 subplot(3,1,3)
 plot(fvec,ECG_Signal_f_mg)
 title('ECG signal in frequency domain after Notch filter at 50 HZ')
+ECG_Signal_t = real(ifft(ifftshift(ECG_Signal_f)));
+figure(1)
+subplot(3,1,3)
+plot(t,ECG_Signal_t)
+title('ECG signal in time domain after Notch filter at 50 HZ')
+%-------------------------------Step 3--------------------------%
+%--------Increasing SNR--------%
+
