@@ -73,8 +73,14 @@ ECG3_60 = LBF(ECG_Signal_f, 60, 3);
 %-------------------------------Step 4--------------------------%
 %--------Autocorrelation--------%
 ECG3_40_acf = xcorr2(ECG3_40);
+ECG3_40_heart_rate = Heart_rate(ECG3_40_acf)
+
 ECG2_acf = xcorr2(ECG2);
+ECG2_heart_rate = Heart_rate(ECG2_acf)
+
 ECG1_acf = xcorr2(ECG1);
+ECG1_heart_rate = Heart_rate(ECG1_acf)
+
 tau = [-N+1:N-1];
 
 figure(5)
