@@ -92,17 +92,17 @@ tau = [-N+1:N-1];
 figure(5)
 subplot(3,1,1)
 plot(tau, ECG1_acf)
-title('Autocorrelation of unprocessed ECG signal')
+title("Autocorrelation of unprocessed ECG signal, Heart rate is " + ECG1_heart_rate)
 
 figure(5)
 subplot(3,1,2)
 plot(tau, ECG2_acf)
-title('Autocorrelation of notched ECG signal')
+title("Autocorrelation of notched ECG signal, Heart rate is " + ECG2_heart_rate)
 
 figure(5)
 subplot(3,1,3)
 plot(tau, ECG3_40_acf)
-title('Autocorrelation of 50 HZ LPF ECG signal')
+title("Autocorrelation of 50 HZ LPF ECG signal, Heart rate is " + ECG3_40_heart_rate)
 
 
 %% Step5
