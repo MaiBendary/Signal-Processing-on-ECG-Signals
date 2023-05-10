@@ -2,6 +2,7 @@ ECG_Signal = ecg;
 ECG1 = ECG_Signal;
 fs = 500;
 
+%% Step1
 %--------ECG signal in time domain--------%
 N = length(ECG_Signal);
 t_end = N./fs;
@@ -46,6 +47,8 @@ subplot(3,1,2)
 plot(fvec,Xmg)
 title('ECG signal in frequency domain after HPF filter at 0.5 HZ')
 
+
+%% Step2
 %----------------------------Step 2----------------------------%
 %-----Notch Filter at 50 HZ-----%
 
@@ -63,6 +66,8 @@ figure(1)
 subplot(3,1,3)
 plot(t,ECG_Signal_t)
 title('ECG signal in time domain after Notch filter at 50 HZ')
+
+%% Step3
 %-------------------------------Step 3--------------------------%
 %--------Increasing SNR--------%
 ECG3_20 = LBF(ECG_Signal_f, 20, 1);
@@ -70,6 +75,7 @@ ECG3_40 = LBF(ECG_Signal_f, 40, 2);
 ECG3_60 = LBF(ECG_Signal_f, 60, 3);
 
 
+%% Step4
 %-------------------------------Step 4--------------------------%
 %--------Autocorrelation--------%
 ECG3_40_acf = xcorr2(ECG3_40);
@@ -99,6 +105,7 @@ plot(tau, ECG3_40_acf)
 title('Autocorrelation of 50 HZ LPF ECG signal')
 
 
+%% Step5
 %-------------------------------Step 5--------------------------%
 ECG3_40 = pan_tompkin(ECG3_40,fs,1);
 ECG2 = pan_tompkin(ECG2,fs,1);
